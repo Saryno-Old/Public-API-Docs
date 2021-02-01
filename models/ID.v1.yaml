@@ -1,6 +1,2 @@
 type: string
-title: ID
-x-tags:
-  - id
 description: Unique Identifier
-readOnly: true

@@ -1,0 +1,46 @@
+title: Group DM Channel
+type: object
+x-tags:
+  - group
+  - dm
+  - users
+  - channels
+description: Not Implemented Yet
+properties:
+  id:
+    $ref: ./ID.v1.yaml
+  type:
+    type: integer
+    format: int32
+    default: 3
+    example: 3
+    exclusiveMinimum: false
+    exclusiveMaximum: false
+    description: Type '3' for Group DM Text Channel
+    enum:
+      - 3
+  recipient_ids:
+    type: array
+    minItems: 2
+    items:
+      type: string
+  members:
+    type: array
+    items:
+      type: object
+      properties:
+        user_id:
+          $ref: ./User.v1.yaml
+        nickname:
+          type: string
+        color:
+          type: integer
+  owner_id:
+    $ref: ./ID.v1.yaml
+  name:
+    type: string
+required:
+  - id
+  - type
+  - recipient_ids
+  - owner_id

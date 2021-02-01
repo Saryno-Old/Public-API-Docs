@@ -69,68 +69,50 @@ paths:
       description: Returns a list of Partial Community
   /users/@me/channels:
     post:
-      summary: Create DM
+      summary: Create DM Or Group DM
       responses:
         '200':
           description: Channel Created OR Found
           content:
             application/json:
               schema:
-                $ref: ../models/DMChannel.v1.yaml
+                oneOf:
+                  - $ref: ../models/DMChannel.v1.yaml
+                  - $ref: ../models/GroupDMChannel.v1.yaml
       operationId: post-users-@me-channels
       requestBody:
         content:
           application/json:
             schema:
-              $ref: ../models/DMChannel.v1.yaml
-        description: The Channel to Create
+              oneOf:
+                - description: DM Channel
+                  properties:
+                    recipient_id:
+                      $ref: ../models/ID.v1.yaml
+                  required:
+                    - recipient_id
+                - properties:
+                    recipient_ids:
+                      type: array
+                      items:
+                        $ref: ../models/ID.v1.yaml
+                    name:
+                      type: string
+                      default: The User's Usernames Combined
+                      maxLength: 100
+                      description: The Name of the Group DM
+                  deprecated: true
+                  description: Group DM Channel | Not Implemented Yet
+                  required:
+                    - recipient_ids
+              type: object
+        description: 'The Channel with the Recipient (User ID) '
       tags:
         - '@me'
         - channels
         - communities
 components:
-  schemas:
-    User:
-      title: User
-      type: object
-      description: ''
-      x-examples:
-        Alice Smith:
-          id: 142
-          firstName: Alice
-          lastName: Smith
-          email: alice.smith@gmail.com
-          dateOfBirth: '1997-10-31'
-          emailVerified: true
-          signUpDate: '2019-08-24'
-      properties:
-        id:
-          type: integer
-          description: Unique identifier for the given user.
-        firstName:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-          format: email
-        dateOfBirth:
-          type: string
-          format: date
-          example: '1997-10-31'
-        emailVerified:
-          type: boolean
-          description: Set to true if the user's email has been verified.
-        createDate:
-          type: string
-          format: date
-          description: The date that the user was created.
-      required:
-        - id
-        - firstName
-        - lastName
-        - email
-        - emailVerified
+  schemas: {}
   securitySchemes:
     Authorization:
       type: http

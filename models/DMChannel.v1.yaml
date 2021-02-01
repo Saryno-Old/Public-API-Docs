@@ -7,11 +7,6 @@ x-tags:
 properties:
   id:
     $ref: ./ID.v1.yaml
-  recipient_ids:
-    type: array
-    description: The User IDs
-    items:
-      $ref: ./ID.v1.yaml
   type:
     type: integer
     format: int32
@@ -22,7 +17,12 @@ properties:
     exclusiveMinimum: false
     exclusiveMaximum: false
     description: Type '2' for DM Text Channel
+  recipient_ids:
+    type: array
+    maxItems: 2
+    items:
+      type: string
 required:
   - id
-  - recipient_ids
   - type
+  - recipient_ids
