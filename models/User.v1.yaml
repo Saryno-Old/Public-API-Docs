@@ -1,0 +1,24 @@
+title: User
+type: object
+x-tags:
+  - users
+  - '@me'
+description: ''
+properties:
+  id:
+    $ref: ./ID.v1.yaml
+  username:
+    type: string
+    minLength: 1
+    maxLength: 30
+    description: The user's username
+  avatar:
+    $ref: ./CDNItem.v1.yaml
+  flags:
+    type: array
+    uniqueItems: true
+    items:
+      type: number
+    readOnly: true
+required:
+  - id

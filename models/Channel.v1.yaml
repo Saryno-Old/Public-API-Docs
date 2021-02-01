@@ -1,0 +1,6 @@
+title: Channel
+x-tags:
+  - channels
+oneOf:
+  - $ref: ./DMChannel.v1.yaml
+  - $ref: ./CommunityTextChannel.v1.yaml

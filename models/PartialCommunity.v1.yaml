@@ -1,0 +1,14 @@
+title: PartialCommunity
+type: object
+x-tags:
+  - id
+  - communities
+properties:
+  id:
+    $ref: ./ID.v1.yaml
+  name:
+    type: string
+  owner_id:
+    $ref: ./ID.v1.yaml
+  icon:
+    $ref: ./CDNItem.v1.yaml

@@ -1,0 +1,9 @@
+type: string
+title: CDNItem
+x-tags:
+  - cdn
+format: uri
+description: |-
+  The Path to the CDN Item.
+
+  Format: https://cdn.sary.no/{path}

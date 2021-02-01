@@ -1,0 +1,32 @@
+title: Community Text Channel
+type: object
+x-tags:
+  - communities
+  - channels
+properties:
+  id:
+    $ref: ./ID.v1.yaml
+  name:
+    type: string
+    description: The Channel's name
+  topic:
+    type: string
+    description: The Channel's Topic
+  community_id:
+    $ref: ./ID.v1.yaml
+  parent_id:
+    $ref: ./ID.v1.yaml
+  position:
+    type: number
+  type:
+    type: integer
+    format: int32
+    default: 1
+    enum:
+      - 1
+    example: 1
+    description: Type '2' for Community Text Channel
+required:
+  - id
+  - name
+  - type

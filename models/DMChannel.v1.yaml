@@ -1,0 +1,28 @@
+title: DM Text Channel
+type: object
+x-tags:
+  - channels
+  - dm
+  - users
+properties:
+  id:
+    $ref: ./ID.v1.yaml
+  recipient_ids:
+    type: array
+    description: The User IDs
+    items:
+      $ref: ./ID.v1.yaml
+  type:
+    type: integer
+    format: int32
+    default: 2
+    enum:
+      - 2
+    example: 2
+    exclusiveMinimum: false
+    exclusiveMaximum: false
+    description: Type '2' for DM Text Channel
+required:
+  - id
+  - recipient_ids
+  - type
