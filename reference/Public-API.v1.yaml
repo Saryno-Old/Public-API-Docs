@@ -4,7 +4,7 @@ info:
   version: '1.0'
   description: ''
 servers:
-  - url: 'https://api.saryno.com/'
+  - url: 'https://api.saryno.com'
 paths:
   '/users/{userId}':
     parameters:
@@ -16,7 +16,8 @@ paths:
         description: Id of an existing user.
     get:
       summary: Get User Info by User ID
-      tags: []
+      tags:
+        - users
       responses:
         '200':
           description: User Found
@@ -24,16 +25,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
-              examples:
-                Get User Alice Smith:
-                  value:
-                    id: 142
-                    firstName: Alice
-                    lastName: Smith
-                    email: alice.smith@gmail.com
-                    dateOfBirth: '1997-10-31'
-                    emailVerified: true
-                    signUpDate: '2019-08-24'
+              examples: {}
         '404':
           description: User Not Found
       operationId: get-users-userId
@@ -44,64 +36,11 @@ paths:
             schema:
               $ref: ../models/User.v1.yaml
         description: ''
-    patch:
-      summary: Update User Information
-      operationId: patch-users-userId
-      responses:
-        '200':
-          description: User Updated
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-              examples:
-                Updated User Rebecca Baker:
-                  value:
-                    id: 13
-                    firstName: Rebecca
-                    lastName: Baker
-                    email: rebecca@gmail.com
-                    dateOfBirth: '1985-10-02'
-                    emailVerified: false
-                    createDate: '2019-08-24'
-        '404':
-          description: User Not Found
-        '409':
-          description: Email Already Taken
-      description: Update the infromation of an existing user.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                firstName:
-                  type: string
-                lastName:
-                  type: string
-                email:
-                  type: string
-                  description: 'If a new email is given, the user''s email verified property will be set to false.'
-                dateOfBirth:
-                  type: string
-            examples:
-              Update First Name:
-                value:
-                  firstName: Rebecca
-              Update Email:
-                value:
-                  email: rebecca@gmail.com
-              Update Last Name & Date of Birth:
-                value:
-                  lastName: Baker
-                  dateOfBirth: '1985-10-02'
-        description: Patch user properties to update.
   /users/@me:
     get:
       summary: Get Current User
       tags:
         - '@me'
-        - users
       responses:
         '200':
           description: OK
@@ -111,19 +50,11 @@ paths:
                 $ref: ../models/User.v1.yaml
       operationId: get-users-@me
       description: ''
-    patch:
-      summary: Modify current User
-      tags:
-        - '@me'
-        - users
-      responses: {}
-      operationId: patch-users-@me
   /users/@me/communities:
     get:
       summary: Get Current User Communities
       tags:
         - '@me'
-        - users
         - communities
       responses:
         '200':
@@ -139,10 +70,6 @@ paths:
   /users/@me/channels:
     post:
       summary: Create DM
-      tags:
-        - users
-        - channels
-        - dm
       responses:
         '200':
           description: Channel Created OR Found
@@ -157,6 +84,10 @@ paths:
             schema:
               $ref: ../models/DMChannel.v1.yaml
         description: The Channel to Create
+      tags:
+        - '@me'
+        - channels
+        - communities
 components:
   schemas:
     User:
@@ -207,3 +138,8 @@ components:
       description: ''
 security:
   - Authorization: []
+tags:
+  - name: users
+  - name: '@me'
+  - name: communities
+  - name: channels
